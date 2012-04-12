@@ -1,7 +1,7 @@
 var express = require('express');
 var mongo = require('mongoskin');
 
-var port = parseInt(process.argv.pop());
+var port = process.env.PORT || 3000;
 
 var app = express.createServer();
 
