@@ -1,8 +1,6 @@
 var express = require('express');
 var mongo = require('mongoskin');
 
-
-
 var port = parseInt(process.argv.pop());
 
 var app = express.createServer();
@@ -81,7 +79,7 @@ app.get('/', function(req, res) {
 	_validatePermissions(req, res);
 	mongoDb.collection('articles').find().toArray(function(err, articles){
 		res.render( 'index',{
-			isAuthentificated : _getCurrentUser(req),
+			isAuthentificated : _isAuthentificated(req),
 			user : _getCurrentUser(req),
 			title : 'Trance Music',
 			articles : articles,
@@ -93,7 +91,7 @@ app.get('/article/add', function(req, res) {
 	_validatePermissions(req, res);
 	mongoDb.collection('articles').find().toArray(function(err, articles){
 		res.render( 'article_add',{
-			isAuthentificated : _getCurrentUser(req),
+			isAuthentificated : _isAuthentificated(req),
 			user : _getCurrentUser(req),
 			title : 'Add article',
 			articles : articles,
@@ -137,7 +135,7 @@ app.get('/article/:id', function(req, res) {
 	mongoDb.collection('articles').findById(id, function(err, article){
 		mongoDb.collection('articles').find().toArray(function(err, articles){
 			res.render( 'article',{
-				isAuthentificated : _getCurrentUser(req),
+				isAuthentificated : _isAuthentificated(req),
 				user : _getCurrentUser(req),
 				title : article.title,
 				articles : articles,
@@ -153,7 +151,7 @@ app.get('/article/edit/:id', function(req, res) {
 	mongoDb.collection('articles').findById(id, function(err, article){
 		mongoDb.collection('articles').find().toArray(function(err, articles){
 			res.render( 'article_edit',{
-				isAuthentificated : _getCurrentUser(req),
+				isAuthentificated : _isAuthentificated(req),
 				user : _getCurrentUser(req),
 				title : 'Edit article',
 				articles : articles,
