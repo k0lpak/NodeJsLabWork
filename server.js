@@ -108,10 +108,9 @@ app.post('/article/edit/:id', function(req, res) {
 	var id = req.params.id;
 	var article = req.body;
 	article._id = mongoDb.bson_serializer.ObjectID.createFromHexString(id);
-	mongoDb.collection('articles').update(article, function (err, result){
-		res.redirect('/');
+	mongoDb.collection('articles').update({_id : article._id}, article, false, function (err, result){
+		res.redirect('/cms');
 	});
-	
 });
 
 app.listen(port);
