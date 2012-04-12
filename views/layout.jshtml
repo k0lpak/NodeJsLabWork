@@ -1,29 +1,49 @@
+<!DOCTYPE html>
 <html>
 <head>
-<title>@locals.title</title>
-	<link href="/styles/main.css" rel="stylesheet" type="text/css" />
+    <meta charset="utf-8" />
+    <title>@locals.title</title>
+    <link href="/styles/main.css" rel="stylesheet" type="text/css" />
 </head>
-   <header>
+
+<body>
+    <header>
+        @if (locals.isAuthentificated)
+        {
+            <div style="float:right; margin-right:10px;">
+                @Html.ActionLink("CMS", "Select", "Article")
+            </div>
+        }
         <div class="header_text">
-            <h1><a href='/'>Trance Music World</a></h1>
+            <h1><a href="/">Trance Music World</a></h1>
         </div>
         <div class="logon_field">
+            @if (locals.isAuthentificated)
+            {
+                <span>Hello, <b>locals.user.username</b> | </span> 
+                <a href='/logout'>LogOut</a>
+            }
+            else
+            {
+                <a href='/login'>LogIn</a>
+            }
         </div>
     </header>
     <div class="left_panel">
-	<nav>
-		<ul class="navigation">
-			<li><a href='/'>Home</a></li>
-			
-			@for(var i = 0; i < locals.articles.length; i++){
-				var article = locals.articles[i];
-				<li><a href='/article/@article._id'>@article['headline']</a></li>
-			}
-
-		</ul>
-	</nav>
+        <nav>
+            <ul class="navigation">
+				<li><a href='/'>Home</a></li>
+				
+				@for(var i = 0; i < locals.articles.length; i++){
+					var article = locals.articles[i];
+					<li><a href='/article/@article._id'>@article['headline']</a></li>
+				}
+            </ul>
+        </nav>
     </div>
     <div class="main_content">
-        @writeBody()
+                @writeBody()
     </div>
+</body>
 </html>
+
