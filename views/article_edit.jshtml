@@ -1,0 +1,25 @@
+
+<form action='/article/edit/@locals.article._id' method='post'>
+    <fieldset>     
+        <legend>Edit Article</legend>
+        <div>
+            Title
+        </div>
+        <div>
+            <input name='title' type='text' value="@locals.article.title" />
+        </div>
+        <div>
+            Headline
+        </div>
+        <div>
+			<input type='text' name='headline' value='@locals.article.headline' />
+        </div>
+        <div>
+            Body
+        </div>
+        <div>
+			<textarea rows='20' cols='80' name='body' >@locals.article.body</textarea>
+        </div>
+        <input type="submit" value="Edit"/>
+    </fieldset>
+ </form>

@@ -11,7 +11,7 @@
         @if (locals.isAuthentificated)
         {
             <div style="float:right; margin-right:10px;">
-                @Html.ActionLink("CMS", "Select", "Article")
+				<a href='/cms'>CMS</a>
             </div>
         }
         <div class="header_text">
@@ -20,7 +20,7 @@
         <div class="logon_field">
             @if (locals.isAuthentificated)
             {
-                <span>Hello, <b>locals.user.username</b> | </span> 
+                <span>Hello, <b>@locals.user.username</b> | </span> 
                 <a href='/logout'>LogOut</a>
             }
             else
