@@ -1,0 +1,86 @@
+		body
+		{
+			font-size: .85em;
+			font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+			color: #fff;
+			background-color: #fff;
+			background-image:url('/images/background.jpg');
+		}
+
+		header,
+		footer,
+		nav,
+		section {
+			display: block;
+		}
+
+		fieldset 
+		{
+			border:1px solid #ddd;
+			padding:0 1.4em 1.4em 1.4em;
+			margin:0 0 1.5em 0;
+		}
+
+		legend 
+		{
+			font-size:1.2em;
+			font-weight: bold;
+		}
+
+		textarea 
+		{
+			min-height: 75px;
+		}
+
+		.editor-label 
+		{
+			margin: 1em 0 0 0;
+		}
+
+		.editor-field 
+		{
+			margin:0.5em 0 0 0;
+		}
+
+
+		.header_text
+		{
+			float:left;
+			text-align:center;
+			width:100%;
+
+		}
+
+		.header_text a
+		{
+			text-decoration:none;
+		}
+
+		.logon_field
+		{
+			text-align:right;
+			float:right;
+			position:absolute;
+		}
+
+		.main_content
+		{
+			float:right;
+			width:80%;
+		}
+		.left_panel
+		{
+			float:left;
+			width:20%;
+		}
+
+		a:link {color:#fff;}      
+		a:visited {color:#fff;} 
+		a:hover {color:#fff;} 
+		a:active {color:#fff;} 
+
+		.navigation
+		{
+			list-style-type:none;
+			font-size:medium;
+		}

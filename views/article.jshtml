@@ -1,0 +1,4 @@
+<div>
+    <h1>@locals.article.headline</h1>
+    <p>@locals.article.body</p>
+</div>
