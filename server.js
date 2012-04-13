@@ -41,9 +41,11 @@ function _isAuthentificated(req){
 	return _getCurrentUser(req) ? true : false;
 }
 
-function _validatePermissions(req, res){
+function _validatePermissions(req, res, success){
 	if (!_isAuthentificated(req)){
 		res.redirect('/login');
+	}else{
+		success(req, res);
 	}
 }
 
@@ -76,98 +78,104 @@ app.get('/logout', function(req, res){
 
 
 app.get('/', function(req, res) {
-	_validatePermissions(req, res);
-	mongoDb.collection('articles').find().toArray(function(err, articles){
-		res.render( 'index',{
-			isAuthentificated : _isAuthentificated(req),
-			user : _getCurrentUser(req),
-			title : 'Trance Music',
-			articles : articles,
-		});	
+	_validatePermissions(req, res, function (req, res){
+		mongoDb.collection('articles').find().toArray(function(err, articles){
+			res.render( 'index',{
+				isAuthentificated : _isAuthentificated(req),
+				user : _getCurrentUser(req),
+				title : 'Trance Music',
+				articles : articles,
+			});	
+		});
 	});
 });
 
 app.get('/article/add', function(req, res) {
-	_validatePermissions(req, res);
-	mongoDb.collection('articles').find().toArray(function(err, articles){
-		res.render( 'article_add',{
-			isAuthentificated : _isAuthentificated(req),
-			user : _getCurrentUser(req),
-			title : 'Add article',
-			articles : articles,
-			article : {headline : '', title : '', body :''},
-		});
+	_validatePermissions(req, res, function(req, res){
+		mongoDb.collection('articles').find().toArray(function(err, articles){
+			res.render( 'article_add',{
+				isAuthentificated : _isAuthentificated(req),
+				user : _getCurrentUser(req),
+				title : 'Add article',
+				articles : articles,
+				article : {headline : '', title : '', body :''},
+			});
+		});	
 	});
-
 });
 
 app.post('/article/add', function(req, res) {
-	_validatePermissions(req, res);
-	mongoDb.collection('articles').insert(req.body, function (err, result){
-		res.redirect('/');
-	});
-	
+	_validatePermissions(req, res, function(req, res){
+		mongoDb.collection('articles').insert(req.body, function (err, result){
+			res.redirect('/');
+		});	
+	});	
 });
 
 app.get('/cms', function(req, res){
-	_validatePermissions(req, res);
-	mongoDb.collection('articles').find().toArray(function(err, articles){
-		res.render( 'article_select',{
-			isAuthentificated : _getCurrentUser(req),
-			user : _getCurrentUser(req),
-			title : 'CMS',
-			articles : articles,
-		});
+	_validatePermissions(req, res, function(req, res){
+		mongoDb.collection('articles').find().toArray(function(err, articles){
+			res.render( 'article_select',{
+				isAuthentificated : _getCurrentUser(req),
+				user : _getCurrentUser(req),
+				title : 'CMS',
+				articles : articles,
+			});
+		});	
 	});
 });
 
 app.get('/article/delete/:id', function(req, res){
-	_validatePermissions(req, res);
-	var id = req.params.id;
-	mongoDb.collection('articles').remove({_id : mongoDb.bson_serializer.ObjectID.createFromHexString(id)}, function(err,result){
-		res.redirect('/cms/');
+	_validatePermissions(req, res, function(req, res){
+		var id = req.params.id;
+		mongoDb.collection('articles').remove({_id : mongoDb.bson_serializer.ObjectID.createFromHexString(id)}, function(err,result){
+			res.redirect('/cms/');
+		});	
 	});
 });
 
 app.get('/article/:id', function(req, res) {
-	var id = req.params.id;
-	_validatePermissions(req, res);
-	mongoDb.collection('articles').findById(id, function(err, article){
-		mongoDb.collection('articles').find().toArray(function(err, articles){
-			res.render( 'article',{
-				isAuthentificated : _isAuthentificated(req),
-				user : _getCurrentUser(req),
-				title : article.title,
-				articles : articles,
-				article : article,
+	_validatePermissions(req, res, function(req, res){
+		var id = req.params.id;
+		mongoDb.collection('articles').findById(id, function(err, article){
+			mongoDb.collection('articles').find().toArray(function(err, articles){
+				res.render( 'article',{
+					isAuthentificated : _isAuthentificated(req),
+					user : _getCurrentUser(req),
+					title : article.title,
+					articles : articles,
+					article : article,
+				});
 			});
-		});
+		});	
 	});
 });
 
 app.get('/article/edit/:id', function(req, res) {
-	_validatePermissions(req, res);
-	var id = req.params.id;
-	mongoDb.collection('articles').findById(id, function(err, article){
-		mongoDb.collection('articles').find().toArray(function(err, articles){
-			res.render( 'article_edit',{
-				isAuthentificated : _isAuthentificated(req),
-				user : _getCurrentUser(req),
-				title : 'Edit article',
-				articles : articles,
-				article : article,
+	_validatePermissions(req, res, function(req, res){
+		var id = req.params.id;
+		mongoDb.collection('articles').findById(id, function(err, article){
+			mongoDb.collection('articles').find().toArray(function(err, articles){
+				res.render( 'article_edit',{
+					isAuthentificated : _isAuthentificated(req),
+					user : _getCurrentUser(req),
+					title : 'Edit article',
+					articles : articles,
+					article : article,
+				});
 			});
 		});
 	});
 });
 
 app.post('/article/edit/:id', function(req, res) {
-	_validatePermissions(req, res);
-	var id = req.params.id;
-	var article = req.body;
-	article._id = mongoDb.bson_serializer.ObjectID.createFromHexString(id);
-	mongoDb.collection('articles').update({_id : article._id}, article, false, function (err, result){
-		res.redirect('/cms');
+	_validatePermissions(req, res, function(req, res){
+		var id = req.params.id;
+		var article = req.body;
+		article._id = mongoDb.bson_serializer.ObjectID.createFromHexString(id);
+		mongoDb.collection('articles').update({_id : article._id}, article, false, function (err, result){
+			res.redirect('/cms');
+		});	
 	});
 });
 
