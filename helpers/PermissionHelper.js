@@ -16,6 +16,7 @@ PermissionHelper.prototype = {
 	},
 
 	getCurrentUser : function(req){
+		
 		return req.session.items && req.session.items.credentials ? req.session.items.credentials : undefined;
 	},
 

@@ -4,8 +4,8 @@ var permissionsHelper = new PermissionHelper();
 var articleRepository = new ArticleRepository();
 
 
-exports.get_index = function (req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+exports.get_index = function (req, res){	
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		articleRepository.getAll(function(err, articles){
 			res.render( 'index',{
 				isAuthentificated : permissionsHelper.isAuthentificated(req),
@@ -18,7 +18,7 @@ exports.get_index = function (req, res){
 }
 
 exports.get_add = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		articleRepository.getAll(function(err, articles){
 			res.render( 'article_add',{
 				isAuthentificated : permissionsHelper.isAuthentificated(req),
@@ -32,7 +32,7 @@ exports.get_add = function(req, res){
 }
 
 exports.post_add = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		articleRepository.add(req.body, function (err, result){
 			res.redirect('/');
 		});	
@@ -41,7 +41,7 @@ exports.post_add = function(req, res){
 
 
 exports.get_list = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		articleRepository.getAll(function(err, articles){
 			res.render( 'article_select',{
 				isAuthentificated : permissionsHelper.isAuthentificated(req),
@@ -54,7 +54,7 @@ exports.get_list = function(req, res){
 }
 
 exports.get_delete = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		var id = req.params.id;
 		articleRepository.remove(id, function(err,result){
 			res.redirect('/cms/');
@@ -63,7 +63,7 @@ exports.get_delete = function(req, res){
 }
 
 exports.get_article = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		var id = req.params.id;
 		articleRepository.findById(id, function(err, article){
 			articleRepository.getAll(function(err, articles){
@@ -81,7 +81,7 @@ exports.get_article = function(req, res){
 
 
 exports.get_edit = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		var id = req.params.id;
 		articleRepository.findById(id, function(err, article){
 			articleRepository.getAll(function(err, articles){
@@ -98,7 +98,7 @@ exports.get_edit = function(req, res){
 }
 	
 exports.post_edit = function(req, res){
-	permissionsHelper.validatePermissions(res, req, function(res, req){
+	permissionsHelper.validatePermissions(req, res, function(req, res){
 		var id = req.params.id;
 		var article = req.body;
 		articleRepository.update(id, article, function (err, result){

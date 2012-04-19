@@ -1,4 +1,6 @@
 var ArticleRepository = require('../Repositories/ArticleRepository').ArticleRepository;
+var PermissionHelper = require('../helpers/PermissionHelper').PermissionHelper;
+var permissionsHelper = new PermissionHelper();
 var articleRepository = new ArticleRepository();
 
 
@@ -14,8 +16,8 @@ exports.get_login = function(req, res){
 
 
 exports.post_login = function(req, res){
-	if (_isAllowAccess(req.body)){
-		_registerAuthCookie(req.body, req);
+	if (permissionsHelper.isAllowAccess(req.body)){
+		permissionsHelper.registerAuthCookie(req.body, req);
 		res.redirect('/');
 	}else{
 		res.redirect('/login');
