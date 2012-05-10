@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>@locals.title</title>
     <script type="text/javascript" src="/Scripts/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/Scripts/article.js"></script>
     <link href="/styles/main.css" rel="stylesheet" type="text/css" />
 </head>
 
