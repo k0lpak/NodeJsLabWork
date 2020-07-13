@@ -5,7 +5,7 @@
 		var article = locals.articles[i];
         <tr>
             <td>@article.headline</td>
-            <td><a href='/article/delete/@article._id'>Delete</a></td>
+            <td><a class='delete_article' href='/article/delete/@article._id'>Delete</a></td>
             <td><a href='/article/edit/@article._id'>Edit</a></td>
         </tr>
     }

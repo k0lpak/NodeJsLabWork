@@ -57,7 +57,7 @@ exports.get_delete = function(req, res){
 	permissionsHelper.validatePermissions(req, res, function(req, res){
 		var id = req.params.id;
 		articleRepository.remove(id, function(err,result){
-			res.redirect('/cms/');
+			res.send('ok');
 		});
 	});	
 }

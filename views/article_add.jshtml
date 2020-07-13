@@ -17,7 +17,10 @@
             Body
         </div>
         <div>
-			<textarea rows='20' cols='80' name='body' >@locals.article.body</textarea>
+			<textarea id='BodyArea' rows='20' cols='80' name='body' >@locals.article.body</textarea>
+			<script type="text/javascript">
+				CKEDITOR.replace( 'BodyArea' );
+			</script>
         </div>
         <input type="submit" value="Add"/>
     </fieldset>
